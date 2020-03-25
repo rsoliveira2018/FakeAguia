@@ -1,0 +1,53 @@
+﻿@model FakeAguia.Models.ViewModels.EmployeeFormViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>
+    @ViewData["Title"]
+</h2>
+
+<h4>
+    Employee
+</h4>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div class="form-group">
+                <label asp-for="Employee.Name" class="control-label"></label>
+                <input asp-for="Employee.Name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Employee.PlantId" class="control-label"></label>
+                <select asp-for="Employee.PlantId" asp-items="@(new SelectList(Model.Plants, "Id","Name"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employee.ShiftId" class="control-label"></label>
+                <select asp-for="Employee.ShiftId" asp-items="@(new SelectList(Model.Shifts, "Id","Name"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employee.RoleId" class="control-label"></label>
+                <select asp-for="Employee.RoleId" asp-items="@(new SelectList(Model.Roles, "Id","Name"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employee.Profile" class="control-label"></label>
+                <select asp-for="Employee.Profile" class="form-control">
+                    @foreach (var profile in Enum.GetValues(typeof(Profile)).Cast<Profile>().ToList())
+                    {
+                        int profileCode = (int)profile;
+                        <option value="@profileCode">
+                            @profile
+                        </option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
